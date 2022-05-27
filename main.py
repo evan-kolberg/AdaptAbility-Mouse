@@ -11,7 +11,6 @@ subtract y from the max screen height'''
 # split to separate them
 # then send mouse to those coordinates
 while True:
-    read = s.readline().decode('ASCII')
+    read = s.readline().decode('utf-8')
     values = read.split()
     moveTo(int(values[0]), 1439-int(values[1]), 0.01)
-close()
