@@ -32,10 +32,10 @@ while True:
 
     # smoother option for any screen display
     deadzone = 20
-    slow = 10
+    butter = 15
 
-    vx = x/slow
-    vy = y/slow
+    vx = x/butter
+    vy = y/butter
 
     if vx > deadzone*-1 and vx < deadzone:
         if vy > deadzone*-1 and vy < deadzone:
