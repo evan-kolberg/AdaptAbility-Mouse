@@ -1,16 +1,16 @@
 # What you need
 | Physical Things &darr; | 
 | ----------- |
-- Arduino UNO
-- Joystick
-- 5 male to female wires
-- a C2G 5m USB Cable <em>(printer cable)</em>
+|Arduino UNO |
+|Joystick |
+|5 male to female wires |
+|a C2G 5m USB Cable <em>(printer cable)</em> |
 
 | Software &darr; | 
 | ----------- |
-- Arduino IDE
-- VS Code <em>(optional, but highly recommended)</em>
-- Python 3.8+ <em>MAKE SURE YOU SELECT <strong>ADD TO PATH</strong></em>
+|Arduino IDE |
+|VS Code <em>(optional, but highly recommended)</em> |
+|Python 3.8+ <em>MAKE SURE YOU SELECT <strong>ADD TO PATH</strong></em> |
 
 <br><br>
 # Steps
@@ -28,7 +28,7 @@
 <figure>
     <img src="https://user-images.githubusercontent.com/70989484/170765960-ed97007c-c077-4ef1-b973-cbaa6cafd654.png"
          alt="Schematic">
-    <figcaption><center><em>Schematic made with Fritzing</em></center></figcaption>
+    <figcaption><em>Schematic made with Fritzing</em></figcaption>
 </figure>
 
 
