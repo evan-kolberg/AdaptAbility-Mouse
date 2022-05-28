@@ -1,14 +1,13 @@
 void setup() {
   Serial.begin(9600);
+  pinMode(8, INPUT_PULLUP);
 }
 
-// mappings for a 4k display
-
 void loop() {
-  int x = map(analogRead(A1), 0, 1023, 512, -512); 
-  int y = map(analogRead(A0), 0, 1023, 512, -512);
-  Serial.print(x);
+  Serial.print(analogRead(A0));
   Serial.print(' ');
-  Serial.println(y);
+  Serial.print(analogRead(A1));
+  Serial.print(' ');
+  Serial.println(digitalRead(8));
   delay(120);
 }

@@ -1,44 +1,40 @@
 from serial import Serial
-from pyautogui import moveRel
+from pyautogui import moveRel, click
 
 s = Serial('COM5', '9600')
 
 
-'''0,0 is in the top left corner of
-the screen in pyautogui'''
+'''
+0,0 is in the top left corner of
+the screen in pyautogui
 
-'''
-    # very fast, innacurate, and tedious ~ only for 4k
-    C++:
-        int x = map(analogRead(A1), 0, 1023, 2559, 0); 
-        int y = map(analogRead(A0), 0, 1023, 0, 1439);
-    Python:
-        moveTo(x, y, 0.01)
-'''
-
-'''
 each line comes in as "x y"
 split to separate them
 then send mouse to those coordinates
 '''
 
+deadzone = 20
+butter = 20
 
 while True:
-    values = s.readline().decode('utf-8').split()
-    x = int(values[0])
-    y = int(values[1])
-    print(f'X: {x}' + ' '*(6-len(str(x))) + f'Y: {y}')
-    
+    try:
+        values = s.readline().decode('utf-8').split()
+        x = int(values[0])-511.5
+        y = int(values[1])-511.5
+        pin_8 = int(values[2])
 
-    # smoother option for any screen display
-    deadzone = 20
-    butter = 15
+        vx = x/butter
+        vy = y/butter
 
-    vx = x/butter
-    vy = y/butter
+        print(f'x: {x}' + ' '*(20-len(str(x))) + f'y: {y}' + ' '*(20-len(str(y))) + f'vx: {vx}' + ' '*(20-len(str(vx))) + f'vy: {vy}' + ' '*(20-len(str(vy))), values)
 
-    if vx > deadzone*-1 and vx < deadzone:
-        if vy > deadzone*-1 and vy < deadzone:
-            continue
+        if pin_8 == 0:
+            click(button='left')
 
-    moveRel(vx, vy*-1)
+        if x < deadzone*-1 or x > deadzone or y < deadzone*-1 or y > deadzone:
+            moveRel(vx, vy)
+
+    except KeyboardInterrupt:
+        s.close()
+        print('Serial Monitor closed')
+        break
