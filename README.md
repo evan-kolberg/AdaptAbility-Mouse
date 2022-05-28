@@ -1,9 +1,16 @@
 # What do I need?
-## Physical Things &darr;
+## Physical Things ~ Basic Version &darr;
 - Arduino UNO
 - Joystick 
 - 5 male to female wires
 - a C2G 5m USB Cable <em>(printer cable)</em>
+
+## Physical Things ~ Advanced Version &darr;
+- Everything in the basic version
+- 4 buttons
+- 4 10k Ω resistors
+- 10 male to male wires
+- Breadboard with power rails
 
 ## Software &darr;
 - Arduino IDE
@@ -25,17 +32,17 @@
 
 <hr>
 
-<img src="https://user-images.githubusercontent.com/70989484/170765960-ed97007c-c077-4ef1-b973-cbaa6cafd654.png" alt="Basic" width="500" height="500">
+<img src="https://user-images.githubusercontent.com/70989484/170832956-d02a45ce-f8e8-459a-8617-57f92748257c.png" alt="Basic" width="50%" height="50%">
 <p><em>Basic Schematic ~ Made with Fritzing</em></p>
 
 <hr>
 
-<img src="https://user-images.githubusercontent.com/70989484/170807768-41a52f3b-85ca-42ab-99c9-e35994835b5b.png" alt="Advanced" width="500" height="500">
+<img src="https://user-images.githubusercontent.com/70989484/170832702-21fbfc89-7145-40fa-8ca1-9a2122772d06.png" alt="Advanced" width="50%" height="50%">
 <p><em>Advanced Schematic ~ Made with Fritzing</em></p>
 
 <hr>
 
-<img src="https://user-images.githubusercontent.com/70989484/170808142-f89e6aff-2c69-4d65-9025-2fc2d02f25f6.png" alt="Real" width="700" height="500">
+<img src="https://user-images.githubusercontent.com/70989484/170808142-f89e6aff-2c69-4d65-9025-2fc2d02f25f6.png" alt="Real" width="50%" height="50%">
 <p><em>Advanced Schematic ~ Made in real life</em></p>
 
 <hr>
