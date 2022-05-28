@@ -1,16 +1,41 @@
 from serial import Serial
-from pyautogui import moveRel, click, mouseUp, mouseDown, scroll
-import threading
+import pyautogui
+from threading import Thread
+from time import sleep
 
-s = Serial('COM5', '9600')
+pyautogui.FAILSAFE = False
+
+connected = False
+
+while not connected:
+    try:
+        # edit serial port
+        s = Serial('COM5', '9600')
+        s.readline().decode('utf-8').split()
+        connected = True
+        print('\nConnection Successful')
+    except UnicodeDecodeError:
+        pass
 
 
 deadzone = 20
-butter = 20
+butter = 50
+delay = 0.15
 
-jsc = lambda: click(button='primary')
-move = lambda vx, vy: moveRel(vx, vy)
+up_down = 'up'
+cooldowns = {'joystick': 'ready'}
 
+
+def jsc():
+    pyautogui.click(button='middle')
+
+def move(vx, vy):
+    pyautogui.moveRel(vx, vy)
+
+def cool(clicky_thing):
+    sleep(delay)
+    cooldowns[clicky_thing] = 'ready'
+        
 
 while True:
     try:
@@ -22,18 +47,20 @@ while True:
         vx = x/butter
         vy = y/butter
 
-        print(f'x: {x}' + ' '*(15-len(str(x))) + f'y: {y}' + ' '*(15-len(str(y))) + f'vx: {vx}' + ' '*(15-len(str(vx))) + f'vy: {vy}' + ' '*(15-len(str(vy))), values)
-
-        # joystick click uses an internal pullup resistor
+        # joystick click uses an internal pullup resistor ~ will show 0 when clicked
         if joystick_click == 0:
-            thread = threading.Thread(target=jsc)
-            thread.start()            
+            if cooldowns['joystick'] == 'ready':
+                thread = Thread(target=jsc)
+                thread.start()
+                cooldowns['joystick'] = 'waiting'
+                thread = Thread(target=cool, args=['joystick'])
+                thread.start()
 
         if x < deadzone*-1 or x > deadzone or y < deadzone*-1 or y > deadzone:
-            thread = threading.Thread(target=move, args=(vx, vy))
+            thread = Thread(target=move, args=(vx, vy))
             thread.start()
 
     except KeyboardInterrupt:
         s.close()
-        print('Serial Monitor closed')
+        print('\nSerial Monitor closed')
         break

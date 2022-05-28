@@ -9,5 +9,4 @@ void loop() {
   Serial.print(analogRead(A1));
   Serial.print(' ');
   Serial.println(digitalRead(8));
-  delay(120);
 }

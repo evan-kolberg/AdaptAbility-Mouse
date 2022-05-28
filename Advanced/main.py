@@ -1,28 +1,59 @@
 from serial import Serial
-from pyautogui import moveRel, click, mouseUp, mouseDown, scroll
-import threading
+import pyautogui
+from threading import Thread
+from time import sleep
 
-s = Serial('COM5', '9600')
+pyautogui.FAILSAFE = False
+
+connected = False
+
+while not connected:
+    try:
+        # edit serial port
+        s = Serial('COM5', '9600')
+        s.readline().decode('utf-8').split()
+        connected = True
+        print('\nConnection Successful')
+    except UnicodeDecodeError:
+        pass
 
 
 deadzone = 20
-butter = 20
+butter = 35
+delay = 0.15
+
 up_down = 'up'
+cooldowns = {'joystick': 'ready', 'b1': 'ready', 'b2': 'ready', 'b3': 'ready', 'b4': 'ready'}
 
 
-jsc = lambda: click(button='middle')
-b1 = lambda: click(button='primary')
-b2 = lambda: click(button='secondary')
+def jsc():
+    pyautogui.click(button='middle')
+
+def b1():
+    pyautogui.click(button='primary')
+
+def b2():
+    pyautogui.click(button='secondary')
+
 def b3():
     global up_down
     if up_down == 'up':
-        mouseDown()
+        pyautogui.mouseDown()
         up_down = 'down'
     else:
-        mouseUp()
+        pyautogui.mouseUp()
         up_down = 'up'
-b4 = lambda: scroll(-15)
-move = lambda vx, vy: moveRel(vx, vy)
+
+def b4():
+    pyautogui.scroll(-15)
+
+def move(vx, vy):
+    pyautogui.moveRel(vx, vy)
+
+def cool(clicky_thing):
+    sleep(delay)
+    cooldowns[clicky_thing] = 'ready'
+        
 
 
 while True:
@@ -36,41 +67,57 @@ while True:
         button3 = int(values[5])
         button4 = int(values[6])
 
-
         vx = x/butter
         vy = y/butter
 
-        print(f'x: {x}' + ' '*(15-len(str(x))) + f'y: {y}' + ' '*(15-len(str(y))) + f'vx: {vx}' + ' '*(15-len(str(vx))) + f'vy: {vy}' + ' '*(15-len(str(vy))), values)
 
-
-        # joystick click uses an internal pullup resistor
+        # joystick click uses an internal pullup resistor ~ will show 0 when clicked
         if joystick_click == 0:
-            thread = threading.Thread(target=jsc)
-            thread.start()            
+            if cooldowns['joystick'] == 'ready':
+                thread = Thread(target=jsc)
+                thread.start()
+                cooldowns['joystick'] = 'waiting'
+                thread = Thread(target=cool, args=['joystick'])
+                thread.start()
 
-
-        # buttons use external resistors
+        # buttons use external resistors ~ will show 1 when clicked
         if button1 == 1:
-            thread = threading.Thread(target=b1)
-            thread.start()
+            if cooldowns['b1'] == 'ready':
+                thread = Thread(target=b1)
+                thread.start()
+                cooldowns['b1'] = 'waiting'
+                thread = Thread(target=cool, args=['b1'])
+                thread.start()
 
         if button2 == 1:
-            thread = threading.Thread(target=b2)
-            thread.start()
+            if cooldowns['b2'] == 'ready':
+                thread = Thread(target=b2)
+                thread.start()
+                cooldowns['b2'] = 'waiting'
+                thread = Thread(target=cool, args=['b2'])
+                thread.start()
 
         if button3 == 1:
-            thread = threading.Thread(target=b3)
-            thread.start()
+            if cooldowns['b3'] == 'ready':
+                thread = Thread(target=b3)
+                thread.start()
+                cooldowns['b3'] = 'waiting'
+                thread = Thread(target=cool, args=['b3'])
+                thread.start()
 
         if button4 == 1:
-            thread = threading.Thread(target=b4)
-            thread.start()
+            if cooldowns['b4'] == 'ready':
+                thread = Thread(target=b4)
+                thread.start()
+                cooldowns['b4'] = 'waiting'
+                thread = Thread(target=cool, args=['b4'])
+                thread.start()
 
         if x < deadzone*-1 or x > deadzone or y < deadzone*-1 or y > deadzone:
-            thread = threading.Thread(target=move, args=(vx, vy))
+            thread = Thread(target=move, args=(vx, vy))
             thread.start()
 
     except KeyboardInterrupt:
         s.close()
-        print('Serial Monitor closed')
+        print('\nSerial Monitor closed')
         break

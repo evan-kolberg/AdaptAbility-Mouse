@@ -29,5 +29,4 @@ void loop() {
     Serial.print(digitalRead(button3));
     Serial.print(' ');
     Serial.println(digitalRead(button4));
-    delay(120);
 }
