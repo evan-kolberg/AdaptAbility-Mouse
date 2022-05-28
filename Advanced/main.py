@@ -1,11 +1,12 @@
 from serial import Serial
-from pyautogui import moveRel, click, mouseUp, mouseDown
+from pyautogui import moveRel, click, mouseUp, mouseDown, scroll
 
 s = Serial('COM5', '9600')
 
 
 deadzone = 20
 butter = 20
+up_down = 'up'
 
 
 while True:
@@ -27,21 +28,25 @@ while True:
 
         # joystick click uses an internal pullup resistor
         if joystick_click == 0:
-            click(button='left')
+            click(button='middle')
 
         # buttons use external resistors
         if button1 == 1:
-            click(button='left')
+            click(button='primary')
 
         if button2 == 1:
-            click(button='right')
+            click(button='secondary')
 
         if button3 == 1:
-            mouseDown()
+            if up_down == 'up':
+                mouseDown()
+                up_down = 'down'
+            else:
+                mouseUp()
+                up_down = 'up'
 
         if button4 == 1:
-            mouseUp()
-
+            scroll(-15)
 
 
         if x < deadzone*-1 or x > deadzone or y < deadzone*-1 or y > deadzone:

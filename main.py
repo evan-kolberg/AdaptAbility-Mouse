@@ -4,15 +4,6 @@ from pyautogui import moveRel, click
 s = Serial('COM5', '9600')
 
 
-'''
-0,0 is in the top left corner of
-the screen in pyautogui
-
-each line comes in as "x y"
-split to separate them
-then send mouse to those coordinates
-'''
-
 deadzone = 20
 butter = 20
 
