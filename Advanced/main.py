@@ -1,5 +1,6 @@
 from serial import Serial
 from pyautogui import moveRel, click, mouseUp, mouseDown, scroll
+import threading
 
 s = Serial('COM5', '9600')
 
@@ -7,6 +8,21 @@ s = Serial('COM5', '9600')
 deadzone = 20
 butter = 20
 up_down = 'up'
+
+
+jsc = lambda: click(button='middle')
+b1 = lambda: click(button='primary')
+b2 = lambda: click(button='secondary')
+def b3():
+    global up_down
+    if up_down == 'up':
+        mouseDown()
+        up_down = 'down'
+    else:
+        mouseUp()
+        up_down = 'up'
+b4 = lambda: scroll(-15)
+move = lambda vx, vy: moveRel(vx, vy)
 
 
 while True:
@@ -26,31 +42,33 @@ while True:
 
         print(f'x: {x}' + ' '*(15-len(str(x))) + f'y: {y}' + ' '*(15-len(str(y))) + f'vx: {vx}' + ' '*(15-len(str(vx))) + f'vy: {vy}' + ' '*(15-len(str(vy))), values)
 
+
         # joystick click uses an internal pullup resistor
         if joystick_click == 0:
-            click(button='middle')
+            thread = threading.Thread(target=jsc)
+            thread.start()            
+
 
         # buttons use external resistors
         if button1 == 1:
-            click(button='primary')
+            thread = threading.Thread(target=b1)
+            thread.start()
 
         if button2 == 1:
-            click(button='secondary')
+            thread = threading.Thread(target=b2)
+            thread.start()
 
         if button3 == 1:
-            if up_down == 'up':
-                mouseDown()
-                up_down = 'down'
-            else:
-                mouseUp()
-                up_down = 'up'
+            thread = threading.Thread(target=b3)
+            thread.start()
 
         if button4 == 1:
-            scroll(-15)
-
+            thread = threading.Thread(target=b4)
+            thread.start()
 
         if x < deadzone*-1 or x > deadzone or y < deadzone*-1 or y > deadzone:
-            moveRel(vx, vy)
+            thread = threading.Thread(target=move, args=(vx, vy))
+            thread.start()
 
     except KeyboardInterrupt:
         s.close()
