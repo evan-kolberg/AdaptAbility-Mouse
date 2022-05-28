@@ -2,5 +2,5 @@
     "port": "COM5",
     "board": "arduino:avr:uno",
     "programmer": "arduino:avrisp",
-    "sketch": "arduino-HID-mouse.ino"
+    "sketch": "advanced\\advanced.ino"
 }

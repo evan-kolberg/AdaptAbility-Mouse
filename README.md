@@ -13,18 +13,30 @@
 <hr>
 
 # How do I do this?
-1. Connect Arduino to joystick as shown in the schematic and plug into your computer
+1. Connect assemble Arduino as shown in the schematics and plug into your computer
 2. Download this repo and open up the folder in VS Code (or any IDE)
 3. Edit the COM port number that your Arduino uses in both the .ino and .py files
 3. Create a virtual environment <em>~ Explained for VS Code below</em>
-4. With that venv active, run: `pip install pyautogui` in a terminal window
+4. With that venv active, run: `pip install pyserial pyautogui` in a terminal window
 5. Upload the .ino file to the Arduino
-6. Run the python file 
+6. Run the python file
+
+> If you want more buttons, follow the **Advanced Schematic** and run the files in the **Advanced Folder**
 
 <hr>
 
-<img src="https://user-images.githubusercontent.com/70989484/170765960-ed97007c-c077-4ef1-b973-cbaa6cafd654.png" alt="Schematic" width="500" height="500">
-<p style="text-align:center"><em>Schematic Made with Fritzing</em></p>
+<img src="https://user-images.githubusercontent.com/70989484/170765960-ed97007c-c077-4ef1-b973-cbaa6cafd654.png" alt="Basic" width="500" height="500">
+<p><em>Basic Schematic ~ Made with Fritzing</em></p>
+
+<hr>
+
+<img src="https://user-images.githubusercontent.com/70989484/170807768-41a52f3b-85ca-42ab-99c9-e35994835b5b.png" alt="Advanced" width="500" height="500">
+<p><em>Advanced Schematic ~ Made with Fritzing</em></p>
+
+<hr>
+
+<img src="https://user-images.githubusercontent.com/70989484/170808142-f89e6aff-2c69-4d65-9025-2fc2d02f25f6.png" alt="Real" width="700" height="500">
+<p><em>Advanced Schematic ~ Made in real life</em></p>
 
 <hr>
 
