@@ -29,6 +29,13 @@ cooldowns = {'joystick': 'ready', 'b1': 'ready', 'b2': 'ready', 'b3': 'ready', '
 def jsc():
     pyautogui.click(button='middle')
 
+def move(vx, vy):
+    pyautogui.moveRel(vx, vy)
+
+def cool(clicky_thing):
+    sleep(delay)
+    cooldowns[clicky_thing] = 'ready'
+
 def b1():
     pyautogui.click(button='primary')
 
@@ -47,29 +54,21 @@ def b3():
 def b4():
     pyautogui.scroll(-15)
 
-def move(vx, vy):
-    pyautogui.moveRel(vx, vy)
-
-def cool(clicky_thing):
-    sleep(delay)
-    cooldowns[clicky_thing] = 'ready'
-        
-
 
 while True:
     try:
         values = s.readline().decode('utf-8').split()
+        # A0 A1 8 12 11 10 9
+        # vrx vry sw button1 button2 button3 button4
         x = int(values[0])-511.5
         y = int(values[1])-511.5
         joystick_click = int(values[2])
-        button1 = int(values[3])
-        button2 = int(values[4])
-        button3 = int(values[5])
-        button4 = int(values[6])
+
+        buttonStates = [int(values[3]), int(values[4]), int(values[5]), int(values[6])]
+        buttonFunctions = {'b1': b1, 'b2': b2, 'b3': b3, 'b4': b4}
 
         vx = x/butter
         vy = y/butter
-
 
         # joystick click uses an internal pullup resistor ~ will show 0 when clicked
         if joystick_click == 0:
@@ -81,38 +80,16 @@ while True:
                 thread.start()
 
         # buttons use external resistors ~ will show 1 when clicked
-        if button1 == 1:
-            if cooldowns['b1'] == 'ready':
-                thread = Thread(target=b1)
-                thread.start()
-                cooldowns['b1'] = 'waiting'
-                thread = Thread(target=cool, args=['b1'])
-                thread.start()
-
-        if button2 == 1:
-            if cooldowns['b2'] == 'ready':
-                thread = Thread(target=b2)
-                thread.start()
-                cooldowns['b2'] = 'waiting'
-                thread = Thread(target=cool, args=['b2'])
-                thread.start()
-
-        if button3 == 1:
-            if cooldowns['b3'] == 'ready':
-                thread = Thread(target=b3)
-                thread.start()
-                cooldowns['b3'] = 'waiting'
-                thread = Thread(target=cool, args=['b3'])
-                thread.start()
-
-        if button4 == 1:
-            if cooldowns['b4'] == 'ready':
-                thread = Thread(target=b4)
-                thread.start()
-                cooldowns['b4'] = 'waiting'
-                thread = Thread(target=cool, args=['b4'])
-                thread.start()
-
+        for i in range(4):
+            if buttonStates[i] == 1:
+                name = f'b{i+1}'
+                if cooldowns[name] == 'ready':
+                    thread = Thread(target=buttonFunctions[name])
+                    thread.start()
+                    cooldowns[name] = 'waiting'
+                    thread = Thread(target=cool, args=[name])
+                    thread.start()
+        
         if x < deadzone*-1 or x > deadzone or y < deadzone*-1 or y > deadzone:
             thread = Thread(target=move, args=(vx, vy))
             thread.start()
