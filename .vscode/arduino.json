@@ -2,5 +2,5 @@
     "port": "COM5",
     "board": "arduino:avr:uno",
     "programmer": "arduino:avrisp",
-    "sketch": "advanced\\\\advanced.ino"
+    "sketch": "main-version\\main-version.ino"
 }

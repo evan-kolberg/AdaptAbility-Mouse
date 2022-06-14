@@ -1,15 +1,15 @@
 # What do I need?
-## Physical Things ~ Basic Version &darr;
+## Physical Things ~ Simple Version &darr;
 - Arduino UNO
 - Joystick 
 - 5 male to female wires
-- a C2G 5m USB Cable <em>(printer cable)</em>
+- a USB AB cable <em>(printer cable)</em>
 
-## Physical Things ~ Advanced Version &darr;
+## Physical Things ~ Main Version &darr;
 - Everything in the basic version
-- 4 buttons
-- 4 10k Ω resistors
-- 10 male to male wires
+- 2 buttons
+- 2 10k Ω resistors
+- 6 male to male wires
 - Breadboard with power rails
 
 ## Software &darr;
@@ -20,7 +20,7 @@
 <hr>
 
 # How do I do this?
-1. Connect assemble Arduino as shown in the schematics and plug into your computer
+1. Connect assemble your hardware as shown in the schematics and plug into your computer
 2. Download this repo and open up the folder in VS Code (or any IDE)
 3. Edit the COM port number that your Arduino uses in both the .ino and .py files
 3. Create a virtual environment <em>~ Explained for VS Code below</em>
@@ -28,23 +28,16 @@
 5. Upload the .ino file to the Arduino
 6. Run the python file
 
-> If you want more buttons, follow the **Advanced Schematic** and run the files in the **Advanced Folder**
+> If you want physical buttons to trigger clicks, follow the **main version**
+<hr>
+
+<img src="https://user-images.githubusercontent.com/70989484/173488834-09751718-110d-4c77-a341-a5704f89b269.png" alt="Advanced" width="50%" height="50%">
+<p><em>Main Version ~ Made with Fritzing</em></p>
 
 <hr>
 
 <img src="https://user-images.githubusercontent.com/70989484/170832956-d02a45ce-f8e8-459a-8617-57f92748257c.png" alt="Basic" width="50%" height="50%">
-<p><em>Basic Schematic ~ Made with Fritzing</em></p>
-
-<hr>
-
-<img src="https://user-images.githubusercontent.com/70989484/170832702-21fbfc89-7145-40fa-8ca1-9a2122772d06.png" alt="Advanced" width="50%" height="50%">
-<p><em>Advanced Schematic ~ Made with Fritzing</em></p>
-
-<hr>
-
-<img src="https://user-images.githubusercontent.com/70989484/170808142-f89e6aff-2c69-4d65-9025-2fc2d02f25f6.png" alt="Real" width="50%" height="50%">
-<p><em>Advanced Schematic ~ Made in real life</em></p>
-
+<p><em>Simple Version ~ Made with Fritzing</em></p>
 <hr>
 
 # How to Create a Virtual Environment for Python in VS Code
