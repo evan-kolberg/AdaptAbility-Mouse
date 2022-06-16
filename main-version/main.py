@@ -10,13 +10,13 @@ connected = False
 
 while not connected:
     try:
-        # edit serial port
+        # ------ EDIT SERIAL PORT HERE ------
         s = Serial('COM5', '9600')
         # if the program has a bad start (like, a decoding error) then try again
         s.readline().decode('utf-8').split()
         connected = True
         print('\nConnection Successful')
-    except UnicodeDecodeError:
+    except (UnicodeDecodeError, ValueError):
         pass
 
 # parameters for how the program operates
@@ -24,11 +24,13 @@ deadzone = 20
 butter = 35
 delay = 0.15
 
+# don't touch these
 cooldowns = {'joystick': 'ready', 'b1': 'ready', 'b2': 'ready'}
 previous1 = 0
 previous2 = 0
+oldPos = 0
 
-# deataches from main program so it doesn't get slowed down
+# detaches from main program so it doesn't get slowed down
 def cool(clicky_thing):
     sleep(delay)
     cooldowns[clicky_thing] = 'ready'
@@ -36,8 +38,8 @@ def cool(clicky_thing):
 while True:
     try:
         values = s.readline().decode('utf-8').split()
-        # A0 A1 8 12 11 10 9
-        # vrx vry sw button1 button2 button3 button4
+        # A0 A1 8 12 11
+        # vrx vry sw button1 button2
         x = int(values[0])-511.5
         y = int(values[1])-511.5
         joystick_click = int(values[2])
@@ -45,6 +47,8 @@ while True:
         b1 = int(values[3])
         b2 = int(values[4])
 
+        # TURN KNOB VERY SLOWLY
+        enc = int(values[5])
         # slows the movements of the mouse cursor
         vx = x/butter
         vy = y/butter
@@ -85,6 +89,13 @@ while True:
         if x < deadzone*-1 or x > deadzone or y < deadzone*-1 or y > deadzone:
             thread = Thread(target=pyautogui.moveRel, args=(vx, vy))
             thread.start()
+
+        # TURN KNOB VERY SLOWLY
+        newPos = enc
+        if newPos != oldPos:
+            thread = Thread(target=pyautogui.scroll, args=[(newPos-oldPos)*-50])
+            thread.start()
+        oldPos = newPos
 
     except KeyboardInterrupt:    # CTRL + C
         s.close()

@@ -1,38 +1,45 @@
-# What do I need?
-## Physical Things ~ Simple Version &darr;
+# ULTIMATE WALMART GAMING MOUSE
+## What do I need?
+### Physical Things ~ Simple Version &darr;
 - Arduino UNO
 - Joystick 
 - 5 male to female wires
 - a USB AB cable <em>(printer cable)</em>
 
-## Physical Things ~ Main Version &darr;
-- Everything in the basic version
+### Physical Things ~ Main Version &darr;
+- Arduino UNO
+- Joystick
 - 2 buttons
+- I2C LCD Display
+- Rotary encoder
+- RGB LED
+- Breadboard
 - 2 10k Ω resistors
-- 6 male to male wires
-- Breadboard with power rails
+- 3 220 Ω resistors
+- a LOT of male to male cables
+- a LOT of male to female cables
+- a USB AB cable <em>(printer cable)</em>
 
-## Software &darr;
+### Software &darr;
 - Arduino IDE
 - VS Code <em>(optional, but highly recommended)</em>
 - Python 3.8+ (<em>MAKE SURE YOU SELECT <strong>ADD TO PATH</strong></em>)
 
 <hr>
 
-# How do I do this?
-1. Connect assemble your hardware as shown in the schematics and plug into your computer
-2. Download this repo and open up the folder in VS Code (or any IDE)
-3. Edit the COM port number that your Arduino uses in both the .ino and .py files
-3. Create a virtual environment <em>~ Explained for VS Code below</em>
-4. With that venv active, run: `pip install pyserial pyautogui` in a terminal window
-5. Upload the .ino file to the Arduino
-6. Run the python file
+## How do I do this?
+1. Choose a path: Main Version (cool) or Simple Verion (not cool) and downolad this repo
+2. If you choose the Main Version, go ahead and look at the .ino file to see how to assemble the hardware with the correct pin formation.
+3. Edit the COM port number in the python file that matches the COM port that your Arduino runs on (check using the Arduino IDE)
+4. Create a virtual environment in Python <em>~ Explained for VS Code below</em>
+5. Install the dependencies with `pip install pyserial pyautogui` in a terminal window (preferably in the virtual env)
+6. Upload the .ino file to the Arduino 
+7. Run the python file
 
-> If you want physical buttons to trigger clicks, follow the **main version**
 <hr>
 
-<img src="https://user-images.githubusercontent.com/70989484/173488834-09751718-110d-4c77-a341-a5704f89b269.png" alt="Advanced" width="50%" height="50%">
-<p><em>Main Version ~ Made with Fritzing</em></p>
+<img src="https://user-images.githubusercontent.com/70989484/173990813-af626dca-5e85-4971-926e-b44828880996.png" alt="Advanced" width="50%" height="50%">
+<p><em>Main Version ~ Not Made with Fritzing</em></p>
 
 <hr>
 
@@ -40,8 +47,8 @@
 <p><em>Simple Version ~ Made with Fritzing</em></p>
 <hr>
 
-# How to Create a Virtual Environment for Python in VS Code
-## Always start with a project folder (download this repo to use as one)
+## How to Create a Virtual Environment for Python in VS Code
+### Always start with a project folder (download this repo to use as one)
 
 Start by clicking 'New Terminal' under the  'Terminal' section on the top left part of VS Code.
 
