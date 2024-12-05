@@ -1,4 +1,4 @@
-# ULTIMATE WALMART GAMING MOUSE
+# Control your computer cursor with a joystick!
 ## What do I need?
 ### Physical Things ~ Simple Version &darr;
 - Arduino UNO
@@ -38,7 +38,7 @@
 
 <hr>
 
-<img src="https://user-images.githubusercontent.com/70989484/173990813-af626dca-5e85-4971-926e-b44828880996.png" alt="Advanced" width="50%" height="50%">
+![173990813-af626dca-5e85-4971-926e-b44828880996](https://github.com/user-attachments/assets/65a0f268-7233-4b41-9b6f-c4ba954f4d0e)
 <p><em>Main Version ~ Not Made with Fritzing</em></p>
 
 <hr>
